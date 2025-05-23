@@ -6,6 +6,7 @@ import lombok.Setter;
 import org.hibernate.type.descriptor.jdbc.VarcharJdbcType;
 
 @Entity
+@Table(name = "user")
 @Setter
 @Getter
 
