@@ -27,5 +27,4 @@ public class Product {
 
     @JsonProperty(value = "product_description")
     private String productDescription;
-
 }
