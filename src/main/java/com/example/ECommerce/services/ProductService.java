@@ -35,17 +35,12 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public Optional<Product> updateProduct(Product product) {
+    public void updateProduct(Product product) {
         Long productId = product.getProductId();
         Optional<Product> p = this.productRepository.findById(productId);
         if(p.isPresent()) {
             this.productRepository.save(product);
         }
-        else {
-            return Optional.empty();
-        }
-
-        return p;
     }
 
     public boolean deleteProduct(Long id) {
