@@ -20,7 +20,7 @@ public class Product {
     private String productName;
 
     @JsonProperty(value = "product_price")
-    private double productPrice;
+    private Double productPrice;
 
     @JsonProperty(value = "image_url")
     private String imageUrl;
