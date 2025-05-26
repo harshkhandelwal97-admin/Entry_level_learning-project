@@ -1,19 +1,14 @@
 package com.example.ECommerce.entities;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Data
 @Table(name= "carts")
 @Getter
 @Setter
-public class cart {
+public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long cart_id;

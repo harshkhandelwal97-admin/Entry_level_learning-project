@@ -8,14 +8,14 @@ import lombok.Setter;
 @Table(name = "cart_items")
 @Setter
 @Getter
-public class cart_items {
+public class CartItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long cart_item_id;
 
     @ManyToOne
     @JoinColumn(name="cart_id")
-    private cart obj;
+    private Cart obj;
 
     @OneToOne
     @JoinColumn(name="product_id")

@@ -8,7 +8,7 @@ import lombok.Setter;
 @Table(name = "payments")
 @Getter
 @Setter
-public class payments {
+public class Payments {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,7 +16,7 @@ public class payments {
 
     @OneToOne
     @JoinColumn(name = "cart_id")
-    private cart cart;
+    private Cart cart;
 
     private Double totalAmount;
 
