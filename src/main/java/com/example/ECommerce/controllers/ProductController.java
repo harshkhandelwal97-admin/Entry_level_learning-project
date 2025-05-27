@@ -17,12 +17,10 @@ import java.util.Optional;
 @RequestMapping("/api/products")
 public class ProductController {
 
-    private final ProductServiceImpl productServiceImpl;
     private final ProductService productService;
 
     @Autowired
-    public ProductController(ProductServiceImpl productServiceImpl, ProductService productService) {
-        this.productServiceImpl = productServiceImpl;
+    public ProductController(ProductService productService) {
         this.productService = productService;
     }
 
@@ -62,7 +60,7 @@ public class ProductController {
     public ResponseEntity<ApiResponse<Product>> updateProductById(@PathVariable Long id, @RequestBody Product product) {
         Optional<Product> productOpt = productService.getProductById(id);
         if (productOpt.isPresent()) {
-            productServiceImpl.updateProduct(product);}
+            productService.updateProduct(product);}
         return productOpt.map(value ->
             ResponseEntity.ok().body(new ApiResponse<>(
                 true,
