@@ -15,6 +15,8 @@ public class Cart {
      @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long cartId;
 
+     @OneToOne
+     @JoinColumn(name="userId")
     private User user;
 
     private double price;
