@@ -6,7 +6,10 @@ import org.springframework.stereotype.Repository;
 
 import com.example.ECommerce.entities.Cart;
 
+import java.util.Optional;
+
 @Repository
 public interface CartRepo extends JpaRepository<Cart, Long>{
 
+    Optional<Cart> findByUser(Long userId);
 }
