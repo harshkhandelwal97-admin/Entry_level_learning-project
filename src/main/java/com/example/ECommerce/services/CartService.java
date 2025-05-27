@@ -26,7 +26,7 @@ public class CartService {
     private UserRepo userRepo;
 
     private void addacart(Long userId){
-        Optional<Cart> cart = cartRepo.findByUser(userId);
+        Optional<Cart> cart = cartRepo.findByUserId(userId);
         if(cart.isEmpty()){
             Cart cart1 = new Cart();
             cart1.setUser(userRepo.findById(userId).get());
