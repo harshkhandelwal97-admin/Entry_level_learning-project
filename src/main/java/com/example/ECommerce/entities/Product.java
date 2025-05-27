@@ -1,6 +1,5 @@
 package com.example.ECommerce.entities;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,19 +11,19 @@ import lombok.Setter;
 public class Product {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonProperty(value = "product_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "product_id")
     private Long productId;
 
-    @JsonProperty(value = "product_name")
+    @Column(name = "product_name")
     private String productName;
 
-    @JsonProperty(value = "product_price")
+    @Column(name = "product_price")
     private Double productPrice;
 
-    @JsonProperty(value = "image_url")
+    @Column(name = "image_url")
     private String imageUrl;
 
-    @JsonProperty(value = "product_description")
+    @Column(name = "product_description")
     private String productDescription;
 }

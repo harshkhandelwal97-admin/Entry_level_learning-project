@@ -2,6 +2,7 @@ package com.example.ECommerce.controllers;
 
 import com.example.ECommerce.dto.ApiResponse;
 import com.example.ECommerce.entities.Product;
+import com.example.ECommerce.services.ProductService;
 import com.example.ECommerce.services.ProductServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,15 +18,17 @@ import java.util.Optional;
 public class ProductController {
 
     private final ProductServiceImpl productServiceImpl;
+    private final ProductService productService;
 
     @Autowired
-    public ProductController(ProductServiceImpl productServiceImpl) {
+    public ProductController(ProductServiceImpl productServiceImpl, ProductService productService) {
         this.productServiceImpl = productServiceImpl;
+        this.productService = productService;
     }
 
     @PostMapping("/new")
     public ResponseEntity<ApiResponse<Product>> createProduct(@RequestBody Product product) {
-        Product savedProduct = productServiceImpl.createProduct(product);
+        Product savedProduct = productService.createProduct(product);
         ApiResponse<Product> response = new ApiResponse<>(
                 true,
                 "New product created successfully",
@@ -37,18 +40,27 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponse<Product>> getProductById(@PathVariable Long id) {
-        Optional<Product> productOpt = productServiceImpl.getProductById(id);
+        Optional<Product> productOpt = productService.getProductById(id);
         return productOpt.isPresent() ? ResponseEntity.ok().body(new ApiResponse<>(
                 true,
                 "Product fetched successfully",
                 productOpt.orElse(null))
         ) : ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse<>(false, "Product not available", null));
+    }
 
+    @GetMapping
+    public ResponseEntity<ApiResponse<Product>> getProductByName(@RequestParam(name = "product_name") String productName) {
+        Optional<Product> productOpt = productService.getProductByName(productName);
+        return productOpt.isPresent() ? ResponseEntity.ok().body(new ApiResponse<>(
+                true,
+                "Product fetched successfully",
+                productOpt.orElse(null)
+        )) :  ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse<>(false, "Product not available", null));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<ApiResponse<Product>> updateProductById(@PathVariable Long id, @RequestBody Product product) {
-        Optional<Product> productOpt = productServiceImpl.getProductById(id);
+        Optional<Product> productOpt = productService.getProductById(id);
         if (productOpt.isPresent()) {
             productServiceImpl.updateProduct(product);}
         return productOpt.map(value ->
@@ -59,9 +71,9 @@ public class ProductController {
         ))).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse<>(false, "Product not available", null)));
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<ApiResponse<List<Product>>> getAllProducts() {
-        List<Product> products =  productServiceImpl.getAllProduct();
+        List<Product> products =  productService.getAllProduct();
         String message = products.isEmpty() ? "No products available" : "Products listed below";
         ApiResponse<List<Product>> response = new ApiResponse<>(true, message, products);
         return ResponseEntity
@@ -70,7 +82,7 @@ public class ProductController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<Product>> deleteProductById(@PathVariable Long id) {
-        boolean isDeleted = productServiceImpl.deleteProduct(id);
+        boolean isDeleted = productService.deleteProduct(id);
         if(isDeleted) {
             return ResponseEntity.ok().body(new ApiResponse<>(true, "Product deleted successfully", null));
         }
