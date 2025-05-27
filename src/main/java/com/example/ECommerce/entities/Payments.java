@@ -17,8 +17,6 @@ public class Payments {
     @OneToOne
     @JoinColumn(name = "cart_id")
     private Cart cart;
-
     private Double totalAmount;
-
     private String paymentMethod;
 }
