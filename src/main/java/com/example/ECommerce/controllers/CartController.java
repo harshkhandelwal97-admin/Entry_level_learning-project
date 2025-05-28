@@ -19,5 +19,5 @@ import java.util.Optional;
 //2) Delete from the cart
 //3) Show the whole cart
 public class CartController {
-    @PostMapping("/")
+    //@PostMapping("/")
 }
