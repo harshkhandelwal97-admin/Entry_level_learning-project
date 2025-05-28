@@ -1,6 +1,7 @@
 package com.example.ECommerce.controllers;
 
 import com.example.ECommerce.dto.ApiResponse;
+import com.example.ECommerce.dto.ProductDTO;
 import com.example.ECommerce.entities.Product;
 import com.example.ECommerce.services.ProductService;
 import com.example.ECommerce.services.ProductServiceImpl;
@@ -25,9 +26,9 @@ public class ProductController {
     }
 
     @PostMapping("/new")
-    public ResponseEntity<ApiResponse<Product>> createProduct(@RequestBody Product product) {
-        Product savedProduct = productService.createProduct(product);
-        ApiResponse<Product> response = new ApiResponse<>(
+    public ResponseEntity<ApiResponse<ProductDTO>> createProduct(@RequestBody Product product) {
+        ProductDTO savedProduct = productService.createProduct(product);
+        ApiResponse<ProductDTO> response = new ApiResponse<>(
                 true,
                 "New product created successfully",
                 savedProduct
@@ -37,8 +38,8 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ApiResponse<Product>> getProductById(@PathVariable Long id) {
-        Optional<Product> productOpt = productService.getProductById(id);
+    public ResponseEntity<ApiResponse<ProductDTO>> getProductById(@PathVariable Long id) {
+        Optional<ProductDTO> productOpt = productService.getProductById(id);
         return productOpt.isPresent() ? ResponseEntity.ok().body(new ApiResponse<>(
                 true,
                 "Product fetched successfully",
@@ -47,8 +48,8 @@ public class ProductController {
     }
 
     @GetMapping
-    public ResponseEntity<ApiResponse<Product>> getProductByName(@RequestParam(name = "product_name") String productName) {
-        Optional<Product> productOpt = productService.getProductByName(productName);
+    public ResponseEntity<ApiResponse<ProductDTO>> getProductByName(@RequestParam(name = "product_name") String productName) {
+        Optional<ProductDTO> productOpt = productService.getProductByName(productName);
         return productOpt.isPresent() ? ResponseEntity.ok().body(new ApiResponse<>(
                 true,
                 "Product fetched successfully",
@@ -57,8 +58,8 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ApiResponse<Product>> updateProductById(@PathVariable Long id, @RequestBody Product product) {
-        Optional<Product> productOpt = productService.getProductById(id);
+    public ResponseEntity<ApiResponse<ProductDTO>> updateProductById(@PathVariable Long id, @RequestBody Product product) {
+        Optional<ProductDTO> productOpt = productService.getProductById(id);
         if (productOpt.isPresent()) {
             productService.updateProduct(product);}
         return productOpt.map(value ->
@@ -70,10 +71,10 @@ public class ProductController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<ApiResponse<List<Product>>> getAllProducts() {
-        List<Product> products =  productService.getAllProduct();
+    public ResponseEntity<ApiResponse<List<ProductDTO>>> getAllProducts() {
+        List<ProductDTO> products =  productService.getAllProduct();
         String message = products.isEmpty() ? "No products available" : "Products listed below";
-        ApiResponse<List<Product>> response = new ApiResponse<>(true, message, products);
+        ApiResponse<List<ProductDTO>> response = new ApiResponse<>(true, message, products);
         return ResponseEntity
                 .ok(response);
     }

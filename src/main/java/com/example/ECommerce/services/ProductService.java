@@ -1,18 +1,19 @@
 package com.example.ECommerce.services;
 
+import com.example.ECommerce.dto.ProductDTO;
 import com.example.ECommerce.entities.Product;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface ProductService {
-    Product createProduct(Product product);
+    ProductDTO createProduct(Product product);
 
-    Optional<Product> getProductById(Long id);
+    Optional<ProductDTO> getProductById(Long id);
 
-    Optional<Product> getProductByName(String productName);
+    Optional<ProductDTO> getProductByName(String productName);
 
-    List<Product> getAllProduct();
+    List<ProductDTO> getAllProduct();
 
     void updateProduct(Product product);
 

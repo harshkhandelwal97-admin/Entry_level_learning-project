@@ -1,42 +1,52 @@
 package com.example.ECommerce.services;
 
+import com.example.ECommerce.dto.ProductDTO;
 import com.example.ECommerce.entities.Product;
 import com.example.ECommerce.repositories.ProductRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
+    private final ModelMapper modelMapper;
 
     @Autowired
-    public ProductServiceImpl(ProductRepository productRepository) {
+    public ProductServiceImpl(ProductRepository productRepository, ModelMapper modelMapper) {
         this.productRepository = productRepository;
+        this.modelMapper = modelMapper;
     }
 
     @Override
-    public Product createProduct(Product product) {
-        return this.productRepository.save(product);
+    public ProductDTO createProduct(Product product) {
+        this.productRepository.save(product);
+        return modelMapper.map(product, ProductDTO.class);
     }
 
     @Override
-    public Optional<Product> getProductById(Long id) {
-        return this.productRepository.findById(id);
+    public Optional<ProductDTO> getProductById(Long id) {
+        Optional<Product> product = this.productRepository.findById(id);
+        return product.map(value -> modelMapper.map(value, ProductDTO.class));
     }
 
     @Override
-    public Optional<Product> getProductByName(String productName) {
-        return this.productRepository.findByProductName(productName);
+    public Optional<ProductDTO> getProductByName(String productName) {
+        Optional<Product> product = this.productRepository.findByProductName(productName);
+        return product.map(value -> modelMapper.map(value, ProductDTO.class));
     }
 
     @Override
-    public List<Product> getAllProduct() {
+    public List<ProductDTO> getAllProduct() {
 
-        return productRepository.findAll();
+        List<Product> products = productRepository.findAll();
+
+        return  products.stream().map(value -> modelMapper.map(value, ProductDTO.class)).collect(Collectors.toList());
     }
 
     @Override
