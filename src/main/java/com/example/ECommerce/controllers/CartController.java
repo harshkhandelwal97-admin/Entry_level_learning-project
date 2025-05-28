@@ -22,7 +22,7 @@ import java.util.Optional;
 public class CartController {
 
     @Autowired
-    private CartItemService cartItemService;
+    private CartItemServiceImpl cartItemService;
 
     @GetMapping("/user/{userid}/cart/{cartid}")
     public ResponseEntity<ApiResponse<List<CartItemsDto>>> getCart(@PathVariable Long cartid) {
