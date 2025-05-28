@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 public class PaymentRequest {
 private Long paymentId;
 private Long cartId;
+private Long userId;
 private Double totalAmount;
 private String paymentMethod;
 }

@@ -9,11 +9,12 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Payments {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long paymentId;
-
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User customer_id;
     @OneToOne
     @JoinColumn(name = "cart_id")
     private Cart cart;
