@@ -17,4 +17,7 @@ public class User {
     private String name;
     private String phoneNumber;
 
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Cart cart;
+
 }
