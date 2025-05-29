@@ -1,7 +1,6 @@
 package com.example.ECommerce.entities;
 
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,7 +8,6 @@ import lombok.Setter;
 @Table(name= "carts")
 @Getter
 @Setter
-@Data
 public class Cart {
      @Id
      @GeneratedValue(strategy = GenerationType.IDENTITY)
