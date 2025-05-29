@@ -26,7 +26,7 @@ public class PaymentService {
         User user = userRepo.findById(req.getUserId()).orElseThrow(() -> new RuntimeException("User not found"));
         Payments payments = new Payments();
         payments.setCart(cart);
-        payments.setCustomer_id(user);
+        payments.setUser(user);
         payments.setTotalAmount(req.getTotalAmount());
         payments.setPaymentMethod("Phonepe");
         return paymentRepository.save(payments);

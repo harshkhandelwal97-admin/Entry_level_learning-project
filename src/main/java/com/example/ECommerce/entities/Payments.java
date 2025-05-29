@@ -20,4 +20,8 @@ public class Payments {
     private Cart cart;
     private Double totalAmount;
     private String paymentMethod;
+
+    public void setUser(User user) {
+        this.customer_id = user;
+    }
 }

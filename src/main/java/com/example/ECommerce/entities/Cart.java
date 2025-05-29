@@ -16,7 +16,7 @@ public class Cart {
     private long cartId;
 
      @OneToOne
-     @JoinColumn(name="userId")
+     @JoinColumn(name="user_id")
     private User user;
 
     private double price;
