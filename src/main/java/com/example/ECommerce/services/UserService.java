@@ -25,8 +25,9 @@ public class UserService {
 
     public void addUser(User user){
         Cart cart = new Cart();
-        cart.setUser(user);
         user.setCart(cart);
-        userRepo.save(user);
+        User savedUser = userRepo.save(user);
+        cart.setUser(savedUser);
+        cartRepo.save(cart);
     }
 }

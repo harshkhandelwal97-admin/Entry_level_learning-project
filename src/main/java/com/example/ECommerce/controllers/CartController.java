@@ -1,6 +1,6 @@
 package com.example.ECommerce.controllers;
 
-import com.example.ECommerce.dto.CartDto;
+import com.example.ECommerce.repositories.CartRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +23,9 @@ import java.util.Optional;
 public class CartController {
 
     @Autowired
+    private CartRepo cartRepo;
+
+    @Autowired
     private CartItemServiceImpl cartItemService;
 
     @Autowired
@@ -37,7 +40,7 @@ public class CartController {
     }
 
     @PostMapping("/product/{productId}/cart/{cartId}")
-    public ResponseEntity<ApiResponse<List<CartItemsDto>>> addCart(@PathVariable Long productId, @PathVariable Long cartId) {
+    public ResponseEntity<ApiResponse<List<CartItemsDto>>> addtoCart(@PathVariable Long productId, @PathVariable Long cartId) {
         List<CartItemsDto> cartItemsDtos = cartItemService.addItemtoCart(productId, cartId);
         String message = "Product " + productRepo.findById(productId).get().getProductName() + " added to cart ";
         ApiResponse<List<CartItemsDto>> apiResponse = new ApiResponse<>(true, message, cartItemsDtos);
