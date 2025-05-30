@@ -1,28 +1,21 @@
 package com.example.ECommerce.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "payments")
+@Table(name = "payment")
 @Getter
 @Setter
-public class Payments {
+public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long paymentId;
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User customer_id;
-
-    @OneToOne
-    @JoinColumn(name = "cartId")
-    private Cart cart;
+    private Long customerId;
+    private Long cartId;
     private Double totalAmount;
     private String paymentMethod;
-
-    public void setUser(User user) {
-        this.customer_id = user;
-    }
 }

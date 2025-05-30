@@ -11,7 +11,7 @@ import lombok.Setter;
 public class Cart {
      @Id
      @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long cartId;
+     private long cartId;
 
      @OneToOne
      @JoinColumn(name="user_id")

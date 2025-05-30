@@ -32,7 +32,6 @@ public class PaymentHistoryService {
             Double itemTotal = item.getProduct().getProductPrice() * item.getQuantity();
             totalPrice += itemTotal;
         }
-        Double totalPrices = totalPrice;
-        return new PaymentDetailsDTO(payId, username, totalPrices, paymentMethod);
+        return new PaymentDetailsDTO(payId, username, totalPrice, paymentMethod);
     }
 }
